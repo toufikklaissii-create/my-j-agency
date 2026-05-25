@@ -3,6 +3,7 @@ import { loadSlim } from "@tsparticles/slim";
 import { useCallback } from "react";
 
 export default function ParticlesBackground() {
+
   const particlesInit = useCallback(async (engine) => {
     await loadSlim(engine);
   }, []);
@@ -12,37 +13,82 @@ export default function ParticlesBackground() {
       id="tsparticles"
       init={particlesInit}
       options={{
+        fullScreen: false,
+
         background: {
           color: {
             value: "transparent",
           },
         },
-        fpsLimit: 60,
-        particles: {
-          number: {
-            value: 45,
+
+        fpsLimit: 120,
+
+        interactivity: {
+          events: {
+            onHover: {
+              enable: true,
+              mode: "grab",
+            },
+            resize: true,
           },
+
+          modes: {
+            grab: {
+              distance: 140,
+              links: {
+                opacity: 0.15,
+              },
+            },
+          },
+        },
+
+        particles: {
           color: {
             value: "#fbbf24",
           },
+
           links: {
-            enable: true,
             color: "#ffffff",
-            opacity: 0.08,
-          },
-          move: {
+            distance: 150,
             enable: true,
-            speed: 0.6,
+            opacity: 0.08,
+            width: 1,
           },
+
+          move: {
+            direction: "none",
+            enable: true,
+            outModes: {
+              default: "bounce",
+            },
+            random: false,
+            speed: 0.6,
+            straight: false,
+          },
+
+          number: {
+            density: {
+              enable: true,
+            },
+            value: 50,
+          },
+
           opacity: {
             value: 0.2,
           },
+
+          shape: {
+            type: "circle",
+          },
+
           size: {
             value: { min: 1, max: 3 },
           },
         },
+
+        detectRetina: true,
       }}
-      className="absolute inset-0 z-0"
+      className="absolute inset-0"
     />
   );
 }
